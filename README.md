@@ -38,8 +38,5 @@ Designed and deployed a secure multi tier AWS infrastructure using public and pr
 - EC2 deployment
 - Linux server configuration
 
-## Screenshots
-(Add screenshots here)
-
 ## Author
 Muhammad Hammad
