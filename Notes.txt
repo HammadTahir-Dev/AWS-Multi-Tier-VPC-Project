@@ -1,0 +1,136 @@
+# AWS Multi Tier VPC Project Notes
+
+## Project Objective
+The goal of this project was to design and deploy a secure multi tier AWS architecture using public and private subnets.
+
+The architecture separates internet facing services from internal backend systems to improve security and scalability.
+
+
+# Key Concepts Learned
+
+## 1. VPC (Virtual Private Cloud)
+A VPC is a logically isolated network inside AWS where cloud resources are deployed securely.
+
+CIDR Used:
+10.0.0.0/16
+
+## 2. Public Subnet
+A subnet connected to the internet through an Internet Gateway.
+
+Used For:
+- Web servers
+- Public applications
+
+CIDR:
+10.0.1.0/24
+
+## 3. Private Subnet
+
+A subnet without direct internet access.
+
+Used For:
+- Backend servers
+- Databases
+- Internal applications
+
+CIDR:
+10.0.2.0/24
+
+# 4. Internet Gateway
+Allows communication between the VPC and the internet.
+
+Without an Internet Gateway:
+- Public EC2 instances cannot access internet
+- SSH connection fails
+
+# 5. Route Tables
+Route tables define where network traffic should go.
+
+Important Route:
+0.0.0.0/0 → Internet Gateway
+This route enables internet access.
+
+# 6. Security Groups
+Security Groups act as virtual firewalls for EC2 instances.
+
+Configured Rules:
+- SSH Port 22
+- HTTP Port 80
+
+Best Practice:
+Restrict SSH access to your own IP.
+
+# 7. EC2 Instances
+Two EC2 instances were deployed:
+
+## Public EC2
+- Accessible from internet
+- Apache installed
+- Hosted website
+
+## Private EC2
+- Internal access only
+- No public IP
+- Backend server simulation
+
+# 8. Apache Web Server
+Apache was installed on the public EC2 instance to host a web application.
+
+Commands Used:
+sudo yum install httpd -y
+sudo systemctl start httpd
+
+# 9. Networking Troubleshooting
+Issues faced during deployment:
+- SSH connection failure
+- Security Group configuration
+- Route Table configuration
+- Public IP verification
+
+Solutions:
+- Added correct route to Internet Gateway
+- Enabled SSH access
+- Used correct PEM file path
+- Used correct EC2 username
+
+# Security Best Practices
+- Use least privilege access
+- Avoid exposing backend servers publicly
+- Restrict SSH access
+- Use Security Groups properly
+- Avoid using root user
+
+# Free Tier Considerations
+Resources used:
+- t2.micro EC2
+- Basic VPC
+- Security Groups
+- Internet Gateway
+These services are mostly Free Tier eligible.
+
+Potential billable services:
+- Extra EBS storage
+- Unused Elastic IPs
+- Load Balancers
+
+# Future Improvements
+Possible enhancements:
+- NAT Gateway
+- Bastion Host
+- Application Load Balancer
+- Auto Scaling
+- Terraform automation
+- Monitoring using CloudWatch
+
+# Real World Use Case
+This architecture is commonly used in enterprise environments where:
+- Public traffic is separated from internal systems
+- Backend services remain protected
+- Applications require better security and scalability
+
+# Key Takeaways
+- Learned AWS networking fundamentals
+- Understood subnet isolation
+- Practiced EC2 deployment
+- Configured Security Groups and routing
+- Built secure cloud infrastructure
